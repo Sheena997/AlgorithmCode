@@ -33,6 +33,7 @@ public:
     vector<int> subordinates;
 };
 */
+//深度优先搜索
 class Solution {
 public:
     void dfs(unordered_map<int, Employee*> info, int curId, int& res)
@@ -51,5 +52,35 @@ public:
         dfs(info, id, res);
         
         return res;
+    }
+};
+
+//广度优先搜索
+class Solution {
+public:
+    int getImportance(vector<Employee*> employees, int id) {
+        queue<int> subId;
+        unordered_map<int, Employee*> info;
+        for(Employee* e : employees)
+            info[e->id] = e;
+        
+        subId.push(id);
+        int sum = 0;
+        
+        //遍历队列
+        while(!subId.empty())
+        {
+            //获取队头元素
+            int curId = subId.front();
+            subId.pop();
+            //处理当前逻辑  
+            sum += info[curId]->importance;
+            
+            //下属入队
+            for(int id : info[curId]->subordinates)
+                subId.push(id);
+        }
+        
+        return sum;
     }
 };
