@@ -37,7 +37,10 @@ public:
         int res = 0;
         int row = grid.size(), col = grid[0].size();
         
+<<<<<<< HEAD
          //队列初始化，找到所有已经腐烂的橘子
+=======
+>>>>>>> 255f7f50b81cb58c3105041c225a970fb61e6da0
         for(int i = 0; i < row; ++i)
         {
             for(int j = 0; j < col; ++j)
@@ -51,32 +54,52 @@ public:
         {
             int size = q.size();
             int flag = 0;
+<<<<<<< HEAD
             //取出当前队列所有元素
+=======
+>>>>>>> 255f7f50b81cb58c3105041c225a970fb61e6da0
             while(size--)
             {
                 pair<int, int> cur = q.front();
                 q.pop();
+<<<<<<< HEAD
                 
                 //上下左右搜索
+=======
+            
+>>>>>>> 255f7f50b81cb58c3105041c225a970fb61e6da0
                 for(int i = 0; i < 4; ++i)
                 {
                     int nx = cur.first + path[i][0];
                     int ny = cur.second + path[i][1];
+<<<<<<< HEAD
                     
                     if(nx < 0 || nx >= row
                     || ny < 0 || ny >= col)
                         continue;
                     
                     //将下一分钟腐烂的橘子放到队列中
+=======
+                
+                    if(nx < 0 || nx >= row
+                    || ny < 0 || ny >= col)
+                        continue;
+>>>>>>> 255f7f50b81cb58c3105041c225a970fb61e6da0
                     if(grid[nx][ny] == 1)
                     {
                         flag = 1;
                         grid[nx][ny] = 2;
                         q.push(pair<int, int>(nx, ny));
                     }
+<<<<<<< HEAD
                 }
             }
             //DFS的一步搜索完成
+=======
+                
+                }
+            }
+>>>>>>> 255f7f50b81cb58c3105041c225a970fb61e6da0
             if(flag == 1)
                 ++res;
         }
