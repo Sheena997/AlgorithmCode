@@ -42,30 +42,40 @@ public:
             deadDict.insert(str);
         
         queue<string> q;
+		//标记列表
         unordered_set<string> visited;
         
         if(deadDict.find("0000") != deadDict.end())
             return -1;
         
+		//队列和标记列表初始化
         visited.insert("0000");
         q.push("0000");
         
         int res = 0;
         
+		//搜索
         while(!q.empty())
         {
+			//当前队列中的所有字符串都是一次变换的结果
             int size = q.size();
             while(size--)
             {
+				//获取队头字符串
                 string curString = q.front();
                 q.pop();
                 if(curString == target)
                     return res;
+				//变换当前字符串的一个字符
                 for(int i = 0; i < curString.size(); ++i)
                 {
+					//每一位的字符有两种变换方式，上，下
                     string newString1 = curString, newString2 = curString;
+					//向上拨
                     newString1[i] = newString1[i] == '9' ? '0' : newString1[i] + 1;
+					//向下拨
                     newString2[i] = newString2[i] == '0' ? '9' : newString2[i] - 1;
+					//判断新的字符是死亡数组，以及是否已经搜索过
                     if(deadDict.find(newString1) == deadDict.end()
                     && visited.find(newString1) == visited.end())
                     {
