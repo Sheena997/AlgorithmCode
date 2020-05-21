@@ -34,34 +34,32 @@ candidates 中的数字可以无限制重复被选取。
 */
 class Solution {
 public:
-    vector<vector<int>> res;
-    vector<int> path;
-    
-    void dfs(vector<int>& candidates, int target, int pos)
+    void dfs(vector<int>& candidates, vector<vector<int>>& solutions, vector<int>& solution, int preId, int curSum, int target)
     {
-        if(target == 0)
+        if(curSum >= target)
         {
-            res.push_back(path);
+            if(curSum == target)
+                solutions.push_back(solution);
             return;
         }
-        
-        if(target < 0)//剪枝
-            return;
-        if(pos == candidates.size())
-            return;
-        
-        // 可以重复选当前
-        path.push_back(candidates[pos]);
-        dfs(candidates, target - candidates[pos], pos);
-        path.pop_back();
-        
-        //不选当前选下一个
-        dfs(candidates, target, pos + 1);
+        //从后选中选择一个数字累加
+        for(int i = preId; i < candidates.size(); ++i)
+        {
+            solution.push_back(candidates[i]);
+            dfs(candidates, solutions, solution, i, curSum + candidates[i], target);
+            
+            //回溯
+            solution.pop_back();
+        }
+            
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        dfs(candidates, target, 0);
+        vector<vector<int>> solutions;
+        vector<int> solution;
+        int curSum = 0;
+        dfs(candidates, solutions, solution, 0, curSum, target);
         
-        return res;
+        return solutions;
     }
 };
 
